@@ -14,14 +14,22 @@ def random_predict(number: int = 1) -> int:
     Returns:
         int: Число попыток
     """
-    count = 0
-
+    predict_number = np.random.randint(1, 101)
+    count = 0 # Переменная счетчик
+    minimum = 1 # Минимальное значение рассматриваемого интервала
+    maximum = 100 # Максимальное значение рассматриваемого интервала
     while True:
         count += 1
-        predict_number = np.random.randint(1, 101)  # предполагаемое число
-        if number == predict_number:
-            break  # выход из цикла если угадали
-    return count
+        if predict_number > number:
+            maximum = predict_number - 1
+            predict_number = (maximum + minimum) // 2
+        elif predict_number < number:
+            minimum = predict_number + 1
+            predict_number = (maximum + minimum) // 2
+        else:
+            #print(f'Компьютер угадал загаданное число за {count} попыток. Это число {number}')
+            break # конец игры и выход из цикла
+    return(count)
 
 
 def score_game(random_predict) -> int:
